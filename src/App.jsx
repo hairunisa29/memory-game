@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Card from "./components/Card";
 
 const cardImages = [
   {
@@ -24,7 +25,7 @@ const cardImages = [
 function App() {
   const [cards, setCards] = useState([]);
   const [turns, setTurns] = useState(0);
-  
+
   // shuffle cards
   const shuffleCards = () => {
     const shuffledCards = [...cardImages, ...cardImages]
@@ -44,6 +45,11 @@ function App() {
       >
         New Game
       </button>
+      <div className="grid grid-cols-4 gap-5">
+        {cards.map((card) => (
+          <Card key={card.id} card={card} />
+        ))}
+      </div>
     </div>
   );
 }
