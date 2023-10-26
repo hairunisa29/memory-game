@@ -13,6 +13,7 @@ const cardImages = [
 function App() {
   const [cards, setCards] = useState([]);
   const [turns, setTurns] = useState(0);
+  const [solved, setSolved] = useState(0);
   const [choiceOne, setChoiceOne] = useState(null);
   const [choiceTwo, setChoiceTwo] = useState(null);
   const [disabled, setDisabled] = useState(false);
@@ -69,6 +70,14 @@ function App() {
     shuffleCards();
   }, []);
 
+  useEffect(() => {
+    if (cards.length === 0) {
+      return;
+    }
+    const succeed = cards.filter((card) => card.matched);
+    setSolved(succeed.length / 2);
+  }, [cards]);
+
   return (
     <div className="flex flex-col items-center gap-4 p-8">
       <h1 className="font-bold text-xl md:text-3xl">Memory Game</h1>
@@ -92,7 +101,12 @@ function App() {
         ))}
       </div>
 
-      <p>Turns: {turns}</p>
+      <div className="flex justify-between gap-16">
+        <p>
+          Solved: {solved}/{cards.length / 2}
+        </p>
+        <p>Turns: {turns}</p>
+      </div>
     </div>
   );
 }
