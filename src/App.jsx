@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 import Card from "./components/Card";
 
 const cardImages = [
@@ -76,6 +77,13 @@ function App() {
     }
     const succeed = cards.filter((card) => card.matched);
     setSolved(succeed.length / 2);
+    if (succeed.length === cards.length) {
+      Swal.fire({
+        title: "Congratulation!",
+        text: "you have finished this game",
+        icon: "success",
+      });
+    }
   }, [cards]);
 
   return (
