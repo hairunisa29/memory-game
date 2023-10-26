@@ -53,8 +53,7 @@ function App() {
         });
         resetTurn();
       } else {
-        console.log("those cards don't match");
-        resetTurn();
+        setTimeout(() => resetTurn(), 1000);
       }
     }
   }, [choiceOne, choiceTwo]);
@@ -72,7 +71,12 @@ function App() {
       </button>
       <div className="grid grid-cols-4 gap-5">
         {cards.map((card) => (
-          <Card key={card.id} card={card} handleChoice={handleChoice} />
+          <Card
+            key={card.id}
+            card={card}
+            handleChoice={handleChoice}
+            flipped={card === choiceOne || card === choiceTwo || card.matched}
+          />
         ))}
       </div>
     </div>
